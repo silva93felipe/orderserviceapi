@@ -1,0 +1,10 @@
+create table ticket (
+	"Id" integer primary key autoincrement,
+	"DataAbertura" datetime not null,
+	"DataFechamento" datetime,
+	"EquipamentoId" integer not null,
+	"Observacao" text not null,
+	"Ativo" boolean not null default true,
+	"UpdateAt" datetime not null,
+	"Status" int not null
+);
