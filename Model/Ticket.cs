@@ -10,13 +10,14 @@ namespace OrdemServico.Model
         public DateTime UpdateAt { get; private set; }
         public DateTime? DataFechamento { get; private set; }
         public int EquipamentoId { get; private set; }
+        public int SetorId { get; private set; }
         public string Observacao { get; private set; }
         public EStatusTicket Status {get; private set;}
         private Ticket()
         {
             
         }
-        public Ticket(int equipamentoId, string observacao)
+        public Ticket(int equipamentoId, string observacao, int setorId)
         {
             Ativo = true;
             DataAbertura = DateTime.Now;
@@ -24,6 +25,7 @@ namespace OrdemServico.Model
             EquipamentoId = equipamentoId;
             Observacao = observacao;
             Status = EStatusTicket.ABERTO;
+            SetorId = setorId;
         }
         public void EncerrarTicket(){
             DataFechamento = DateTime.Now;

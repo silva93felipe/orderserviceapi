@@ -18,10 +18,10 @@ namespace OrdemServico.Repository
             await using var connection = new SqliteConnection(_configuration.GetConnectionString("Dev"));
             
             await connection.ExecuteAsync(
-                        @"INSERT INTO ticket (DataAbertura, DataFechamento, EquipamentoId, Observacao, Ativo, UpdateAt, Status) 
-                        VALUES(@DataAbertura, @DataFechamento, @EquipamentoId, @Observacao, @Ativo, @UpdateAt, @Status);", 
+                        @"INSERT INTO ticket (DataAbertura, DataFechamento, EquipamentoId, Observacao, Ativo, UpdateAt, Status, SetorId) 
+                        VALUES(@DataAbertura, @DataFechamento, @EquipamentoId, @Observacao, @Ativo, @UpdateAt, @Status, @SetorId);", 
                         new { ticket.DataAbertura, ticket.DataFechamento, ticket.EquipamentoId, 
-                            ticket.Observacao, ticket.Ativo, ticket.UpdateAt, ticket.Status 
+                            ticket.Observacao, ticket.Ativo, ticket.UpdateAt, ticket.Status, ticket.SetorId 
                         }
             );
         }
@@ -48,7 +48,7 @@ namespace OrdemServico.Repository
                 await connection.ExecuteAsync(@"UPDATE ticket SET Status = @Status, 
                                                 DataFechamento = @DataFechamento, 
                                                 UpdateAt = @UpdateAt
-                                                WHERE Id = @Id;", 
+                                                WHERE id = @Id;", 
                                                 new { ticket.Status, ticket.DataFechamento, ticket.UpdateAt, ticket.Id });
             }
         }   

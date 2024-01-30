@@ -17,20 +17,22 @@ namespace OrdemServico.Endpoints
                 if(ticket != null){
                   return Results.Ok(ticket);
                 }
-
                return Results.NotFound();
             });
 
-            app.MapPost("/", async (ITicketRepository _ticketRepository, TicketRequet ticket) => {
-                Ticket newTicket = new (ticket.EquipamentoId, ticket.Observacao);
+            app.MapPost("/encerrar/{id:int}", async (int id, ITicketRepository _ticketRepository) => {
+                await _ticketRepository.Encerrar(id);
+                return Results.NoContent();
+            });
 
+            app.MapPost("/", async (ITicketRepository _ticketRepository, TicketRequet ticket) => {
+                Ticket newTicket = new (ticket.EquipamentoId, ticket.Observacao, ticket.setorId);
                 await _ticketRepository.Create(newTicket);
                 return Results.Created();
             });
 
             app.MapDelete("/", async (ITicketRepository _ticketRepository, int id)=> {
                 await _ticketRepository.Delete(id);
-
                 return Results.NoContent();
             });
         }
